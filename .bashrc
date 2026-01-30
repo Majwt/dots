@@ -24,6 +24,10 @@ alias lg="lazygit"
 alias dl='lazydocker'
 # git aliases
 
+alias gbm='git branch -m'
+alias ga='git add'
+alias gc='git commit'
+
 alias gs='clear -x; git status; git log --oneline -4'
 alias gl="git $log"
 alias gd="git $diff"
