@@ -18,7 +18,7 @@ bind -f ~/.inputrc
 
 log="log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto)  %D%n%s%n'"
 diff="diff --output-indicator-new=' ' --output-indicator-old=' '"
-diffs="$diff --staged"
+diffs="diff --staged --output-indicator-new=' ' --output-indicator-old=' '"
 gap="add --patch"
 
 
