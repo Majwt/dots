@@ -11,6 +11,10 @@ source ~/.local/share/omarchy/default/bash/rc
 # alias p='python'
 #
 
+# Make Ctrl-o open Neovim for command editing
+bind '"\C-o": edit-and-execute-command'
+
+
 log="log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto)  %D%n%s%n'"
 diff="diff --output-indicator-new=' ' --output-indicator-old=' '"
 diffs="$diff --staged"
@@ -42,6 +46,8 @@ alias cgd="config $diff"
 alias cgds="config $diffs"
 alias cgap="config $gap"
 alias cgl="config $log"
+alias ca="config add"
+alias cc="config commit"
 
 # source $(wt shellenv)
 
@@ -65,3 +71,15 @@ function clear-dns() {
 
 . "$HOME/.cargo/env"
 
+function fuck () {
+  TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+  export TF_SHELL=bash;
+  export TF_ALIAS=fuck;
+  export TF_SHELL_ALIASES=$(alias);
+  export TF_HISTORY=$(fc -ln -10);
+  export PYTHONIOENCODING=utf-8;
+  TF_CMD=$( thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@" ) && eval "$TF_CMD";
+  unset TF_HISTORY;
+  export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+  history -s $TF_CMD;
+ }
