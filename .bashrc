@@ -68,6 +68,7 @@ if [ -n "$ZSH_VERSION" ]; then
   return
 fi
 source "$HOME/.local/share/omarchy/default/bash/rc"
+alias c='config'
 
 # Add your own exports, aliases, and functions here.
 #
