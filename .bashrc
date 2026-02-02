@@ -3,24 +3,13 @@
 
 # All the default Omarchy aliases and functions
 # (don't mess with these directly, just overwrite them here!)
-source ~/.local/share/omarchy/default/bash/rc
 
-# Add your own exports, aliases, and functions here.
-#
-# Make an alias for invoking commands you use constantly
-# alias p='python'
-#
-
-# Make Ctrl-o open Neovim for command editing
-bind '"\C-o": edit-and-execute-command'
-bind -f ~/.inputrc
-
+export XDG_CONFIG_HOME=$HOME/.config
 
 log="log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto)  %D%n%s%n'"
 diff="diff --output-indicator-new=' ' --output-indicator-old=' '"
 diffs="diff --staged --output-indicator-new=' ' --output-indicator-old=' '"
 gap="add --patch"
-
 
 alias cdi="zi"
 alias upd='docker compose up -d'
@@ -50,6 +39,28 @@ alias cgl="config $log"
 alias ca="config add"
 alias cc="config commit"
 
+if [ -n "$ZSH_VERSION" ]; then
+  # this is zsh
+  source "$HOME/.config/zsh/fzf_config"
+  source "$HOME/.config/zsh/config"
+  function src() {
+    source "$HOME/.zshrc"
+  }
+
+  return
+fi
+source "$HOME/.local/share/omarchy/default/bash/rc"
+
+# Add your own exports, aliases, and functions here.
+#
+# Make an alias for invoking commands you use constantly
+# alias p='python'
+#
+
+# Make Ctrl-o open Neovim for command editing
+bind '"\C-o": edit-and-execute-command'
+bind -f ~/.inputrc
+
 # source $(wt shellenv)
 
 # export GTK_IM_MODULE='fcitx'
@@ -59,7 +70,7 @@ export INPUT_METHOD='fcitx'
 export SDL_IM_MODULE='fcitx'
 
 function src() {
-  source ~/.bashrc
+  source "$HOME/.bashrc"
 }
 
 function clear_dns() {
@@ -72,24 +83,24 @@ function clear-dns() {
 
 . "$HOME/.cargo/env"
 
-function fuck () {
-  TF_PYTHONIOENCODING=$PYTHONIOENCODING;
-  export TF_SHELL=bash;
-  export TF_ALIAS=fuck;
-  export TF_SHELL_ALIASES=$(alias);
-  export TF_HISTORY=$(fc -ln -10);
-  export PYTHONIOENCODING=utf-8;
-  TF_CMD=$( thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@" ) && eval "$TF_CMD";
-  unset TF_HISTORY;
-  export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
-  history -s $TF_CMD;
+function fuck() {
+  TF_PYTHONIOENCODING=$PYTHONIOENCODING
+  export TF_SHELL=bash
+  export TF_ALIAS=fuck
+  export TF_SHELL_ALIASES=$(alias)
+  export TF_HISTORY=$(fc -ln -10)
+  export PYTHONIOENCODING=utf-8
+  TF_CMD=$(thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@") && eval "$TF_CMD"
+  unset TF_HISTORY
+  export PYTHONIOENCODING=$TF_PYTHONIOENCODING
+  history -s $TF_CMD
 }
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	command yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd <"$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
 }
 
 export GPG_TTY=$(tty)
