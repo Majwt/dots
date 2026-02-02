@@ -60,6 +60,11 @@ source "$HOME/.local/share/omarchy/default/bash/rc"
 # Make Ctrl-o open Neovim for command editing
 bind '"\C-o": edit-and-execute-command'
 bind -f ~/.inputrc
+=======
+if command -v fzf >/dev/null 2>&1; then
+  eval "$(fzf --bash)"
+fi
+>>>>>>> Stashed changes
 
 # source $(wt shellenv)
 
@@ -81,7 +86,8 @@ function clear-dns() {
   systemd-resolve --flush-caches
 }
 
-. "$HOME/.cargo/env"
+
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 function fuck() {
   TF_PYTHONIOENCODING=$PYTHONIOENCODING
