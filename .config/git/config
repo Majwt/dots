@@ -85,7 +85,7 @@
 
 
 
-[url "git@github.com:majwt/"]
+[url "git@github.com:Majwt/"]
   insteadOf = me:
 
 [url "git@github.com:axians/"]
@@ -106,6 +106,7 @@
 
 [includeIf "gitdir:~/Kth/**"]
     path = ~/Kth/.gitconfig
+
 [includeIf "gitdir:~/kth/**"]
     path = ~/Kth/.gitconfig
 
