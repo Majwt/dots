@@ -1,6 +1,11 @@
 # If not running interactively, don't do anything (leave this at the top of this file)
 [[ $- != *i* ]] && return
 
+
+if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
+  tmux attach || tmux new || echo "Could not start tmux"
+fi
+
 # All the default Omarchy aliases and functions
 # (don't mess with these directly, just overwrite them here!)
 
@@ -127,3 +132,5 @@ function y() {
 }
 
 export GPG_TTY=$(tty)
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
